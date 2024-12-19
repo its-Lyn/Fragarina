@@ -9,8 +9,6 @@ ARG FEDORA_UBLUE_VERSION="41"
 # BASE IMAGE
 FROM ghcr.io/ublue-os/${OS_SOURCE}${SOURCE_SUFFIX}:${FEDORA_UBLUE_VERSION}
 
-COPY scripts/00-delete.sh /tmp/00-delete.sh
-
 # Add the 6.6 kernel COPR
 RUN dnf5 copr enable kwizart/kernel-longterm-6.6 -y
 
