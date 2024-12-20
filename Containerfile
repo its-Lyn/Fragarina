@@ -5,7 +5,7 @@ ARG FEDORA_UBLUE_VERSION="41"
 
 # BASE IMAGE
 FROM ghcr.io/ublue-os/bazzite-kernel:${FEDORA_UBLUE_VERSION}
-FROM ghcr.io/ublue-os/akmods-nvidia-open:bazzite-${FEDORA_UBLUEVERSION}
+FROM ghcr.io/ublue-os/akmods-nvidia-open:bazzite-${FEDORA_UBLUE_VERSION}
 FROM ghcr.io/ublue-os/akmods:bazzite-${FEDORA_UBLUE_VERSION}
 FROM ghcr.io/ublue-os/akmods-extra:bazzite-${FEDORA_UBLUE_VERSION}
 FROM ghcr.io/ublue-os/${OS_SOURCE}${SOURCE_SUFFIX}:${FEDORA_UBLUE_VERSION}
