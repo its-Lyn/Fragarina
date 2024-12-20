@@ -12,6 +12,11 @@ FROM ghcr.io/ublue-os/${OS_SOURCE}${SOURCE_SUFFIX}:${FEDORA_UBLUE_VERSION}
 
 COPY sysfs/ /
 
+COPY scripts/base.sh /tmp/base.sh
+RUN chmod +x /tmp/base.sh
+RUN /tmp/base.sh && \
+    ostree container commit
+
 RUN curl -Lo /usr/bin/copr https://raw.githubusercontent.com/ublue-os/COPR-command/main/copr && \
     chmod +x /usr/bin/copr && \
     curl -Lo /etc/yum.repos.d/_copr_fiftydinar-gnome-randr-rust.repo https://copr.fedorainfracloud.org/coprs/fiftydinar/gnome-randr-rust/repo/fedora-"${FEDORA_MAJOR_VERSION}"/fiftydinar-gnome-randr-rust-fedora-"${FEDORA_MAJOR_VERSION}".repo && \
@@ -40,11 +45,13 @@ RUN curl -Lo /tmp/nvidia-install.sh https://raw.githubusercontent.com/ublue-os/h
     rm -f /usr/share/vulkan/icd.d/nouveau_icd.*.json && \
     ostree container commit
 
-COPY scripts/intramfs.sh /tmp/intramfs.sh
-RUN tmp/intramfs.sh
+COPY scripts/initramfs.sh /tmp/intramfs.sh
+RUN chmod +x /tmp/initramfs.sh
+RUN /tmp/intramfs.sh
 
 COPY scripts/code.sh /tmp/code.sh
-RUN tmp/code.sh
+RUN chmod +x /tmp/code.sh
+RUN /tmp/code.sh
 
 RUN rpm-ostree install \
     distrobox \
